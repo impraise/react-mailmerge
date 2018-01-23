@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "baseUrl": {
+      "description": "Links in the email should point to this base URL",
+      "type": "string"
+    },
+    "user": {
+      "description": "The person receiving this email",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "invitationToken": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "invitationToken"]
+    },
+    "invitedBy": {
+      "description": "The existing user who invited the person receiving this email",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name"]
+    },
+    "group": {
+      "description": "The group that the person is being invited to join",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name"]
+    }
+  },
+  "required": ["baseUrl", "user", "invitedBy", "group"]
+}

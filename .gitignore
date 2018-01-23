@@ -1,0 +1,6 @@
+/node_modules
+/.env.json
+/coverage
+/build
+/functions/**/*.png
+.DS_Store

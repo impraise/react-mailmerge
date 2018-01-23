@@ -1,0 +1,93 @@
+#!/bin/bash
+
+set -e
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Figure out the apex env name and assets CDN endpoint from the current
+# branch name.
+case $branch in
+  master)
+    env="production"
+    postmarkToken="$POSTMARK_TOKEN_PRODUCTION"
+    cdn="d2hs2ei1xhklop.cloudfront.net"
+    ;;
+  *)
+    env="staging"
+    postmarkToken="$POSTMARK_TOKEN_STAGING"
+    cdn="d2o9yho397pljd.cloudfront.net"
+esac
+
+if [ "$postmarkToken" == "" ]; then
+  echo "Missing postmark token for '$env', set POSTMARK_TOKEN_<ENV> env variable"
+  exit 1
+fi
+
+# The S3 bucket to which assets will be uploaded
+bucket="s3://react-mailmerge-assets-$env"
+
+# Export things that will be used by `apex build` (and passed to webpack) when building
+# the final bundle file:
+export ASSETS_BASE_URL="https://$cdn/"
+export NODE_ENV=production
+
+# Base arguments used when running `apex deploy`
+deployArgs="--env $env -s POSTMARK_TOKEN=$postmarkToken -s ASSETS_BASE_URL=$ASSETS_BASE_URL -s ENVIRONMENT=$env -s BRANCH=$branch"
+
+echo "=== Using variables:"
+echo "    - Branch: $branch"
+echo "    - Environment: $env"
+echo "    - CDN: $cdn"
+echo "    - S3 Bucket: $bucket"
+
+echo "=== Downloading and install Apex binary if not present"
+
+command -v apex >/dev/null 2>&1 && echo "apex installed, skipping..." || {
+  echo "apex not found, installing..."
+  curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
+}
+
+echo "=== Listing functions to be deployed"
+
+functionNames=$(ls -1 functions/)
+
+echo -e "-- Function directories: \n$functionNames"
+echo "-- Running 'apex list':"
+apex list
+
+echo "=== Generating assets list into build/ directory"
+
+# To save round-trips to S3, we move all assets to a directory, and then
+# upload everything inside it. Similar assets will simply override eachother.
+if [ ! -d build ]; then
+  mkdir build
+fi
+
+rm -rf build/*
+
+# Dry-run deploys, and build out a full list of assets to upload:
+for func in $functionNames; do
+  # Dry-run and build assets for this function:
+  apex deploy --dry-run $deployArgs $func
+
+  # Move assets to build/ dir
+  # This could be written in a much simpler way, but for explicit-ness and error-handling
+  # sake, we do it in a more methodic manner.
+  for asset in ls -1 functions/$func/*{.png,.gif,.jpg}; do
+    if [ -f $asset ]; then
+      echo "Copying generated '$asset' to build/"
+      mv "$asset" build/
+    fi
+  done
+done
+
+echo "=== Uploading assets to S3"
+aws s3 cp build/ "$bucket/" --recursive
+
+echo "=== Deploying functions to Lambda"
+
+for func in $functionNames; do
+  apex deploy $deployArgs $func
+done
+
+echo "=== All done! :)"

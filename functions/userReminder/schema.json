@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "properties": {
+    "baseUrl": {
+      "description": "Links in the email should point to this base URL",
+      "type": "string"
+    },
+    "user": {
+      "description": "The person receiving this email",
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "timeZone": {
+          "description":
+            "The user's local timezone. Must be a name from the IANA time zone database.",
+          "type": "string"
+        },
+        "locale": {
+          "description": "Language/region identifier",
+          "type": "string"
+        },
+        "invitationToken": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["firstName", "email", "locale", "timeZone"]
+    },
+    "event": {
+      "description": "The event that the user is being reminded of",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "startAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["title", "id", "startAt"]
+    }
+  },
+  "required": ["baseUrl", "user", "event"]
+}

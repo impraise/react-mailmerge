@@ -1,0 +1,12 @@
+{
+  "name": "React-MailMerge",
+  "description": "",
+  "runtime": "nodejs6.10",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::###########:role/mailmerge",
+  "environment": {},
+  "hooks": {
+    "build": "yarn build --context $(pwd) --output-path $(pwd)"
+  }
+}

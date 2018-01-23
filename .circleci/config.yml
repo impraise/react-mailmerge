@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:6
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --pure-lockfile
+      - run:
+          name: Run tests
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+          command: yarn run test --ci --testResultsProcessor="jest-junit" --coverage --verbose
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: coverage
+          destination: test-coverage
+      - run:
+          name: Install awscli
+          command: apt-get update && apt-get install -yy awscli
+      - deploy:
+          command: ./utils/ci/deploy
