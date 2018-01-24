@@ -18,7 +18,7 @@ const Template = ({ baseUrl, user, event }) => {
     <EmailWrapper title="Don't forget to RSVP!">
       <Item>{user.firstName},</Item>
       <Item>
-        Are you attending {event.title}? It&#39;s starting on
+        Are you attending {event.title}? It&apos;s starting on
         <b>
           <FormattedDate
             value={event.startAt}

@@ -4,7 +4,7 @@ Rendering templates is slow. If your website sends transactional email,
 it's probably rendering a lot of templates, since every email uses at least
 one template.
 
-Rather than making our backend servers render all those templates,
+Rather than making your backend servers render all those templates,
 React-MailMerge allows you to offload that work to AWS. React-MailMerge runs on
 [AWS Lambda](https://aws.amazon.com/lambda/), and exposes an API for each
 email template. Your backend servers can call these APIs with batches of

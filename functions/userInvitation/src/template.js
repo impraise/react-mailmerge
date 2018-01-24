@@ -22,7 +22,7 @@ const Template = ({ baseUrl, user, invitedBy, group }) => {
           </Item>
           <Item>
             <b>{site.name}</b> is the best place to frobnicate all your
-            whatits, and it's free! We&apos;d love to get you on board!
+            whatsits, and it&apos;s free! We&apos;d love to get you on board!
           </Item>
           <CallToAction url={url} text="Accept your invitation" />
         </Box>
@@ -35,7 +35,7 @@ Template.propTypes = {
   baseUrl: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
   invitedBy: PropTypes.object.isRequired,
-  group: PropTypes.object.isRequired,
+  group: PropTypes.object.isRequired
 };
 
 export default Template;
