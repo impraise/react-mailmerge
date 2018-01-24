@@ -7,6 +7,7 @@ import schema from "../schema.json";
 import Template from "./template";
 import textTemplate from "./template.text";
 import Client from "shared/email";
+import * as site from "shared/constants/site";
 
 const client = new Client(process.env.POSTMARK_TOKEN);
 
@@ -36,7 +37,7 @@ export const handle = (data, context, callback) => {
 
   client.sendEmail(
     {
-      From: "hi@example-website.com",
+      From: site.fromEmail,
       To: data.user.email,
       Subject: `Looking forward to seeing you at ${data.event.title}!`,
       TextBody: text,

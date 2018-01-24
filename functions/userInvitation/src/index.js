@@ -1,7 +1,6 @@
 import React from "react";
 import { renderEmail } from "react-html-email";
 import Ajv from "ajv";
-import formatMessage from "format-message";
 
 import schema from "../schema.json";
 import Template from "./template";
@@ -9,7 +8,6 @@ import textTemplate from "./template.text";
 import Client from "shared/email";
 import * as site from "shared/constants/site";
 
-formatMessage.setup({ locale: "en" });
 const client = new Client(process.env.POSTMARK_TOKEN);
 
 export const handle = (data, context, callback) => {

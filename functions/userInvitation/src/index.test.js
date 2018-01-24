@@ -47,7 +47,6 @@ describe("userInvitation handler", () => {
     };
     const callback = jest.fn();
     const context = new MockContext();
-    debugger;
     handle(data, context, callback);
 
     expect(mockSendEmail).toHaveBeenCalledWith(
