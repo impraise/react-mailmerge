@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@storybook/react": "^3.3.10",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^22.1.0",
@@ -49,6 +50,7 @@
     "react-intl": "^2.4.0"
   },
   "scripts": {
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "precommit": "lint-staged",
     "lint": "eslint --fix --max-warnings 0 ./",
     "test": "jest",

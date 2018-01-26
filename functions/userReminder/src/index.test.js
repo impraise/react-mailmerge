@@ -48,7 +48,6 @@ describe("userReminder handler", () => {
     const context = new MockContext();
     const callback = jest.fn();
     handle(data, context, callback);
-    debugger;
 
     expect(mockSendEmail).toHaveBeenCalledWith(
       {

@@ -14,7 +14,7 @@ const Template = ({ baseUrl, user, invitedBy, group }) => {
         <Box cellPadding={5}>
           <Item>Hey!</Item>
           <Item>
-            ${invitedBy.name} has invited you to join the <b>{group.name}</b>
+            {invitedBy.name} has invited you to join the <b>{group.name}</b>{" "}
             group on{" "}
             <A href={url} color={linkColor} textDecoration="none">
               {site.name}!
