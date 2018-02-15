@@ -1,6 +1,6 @@
 # React-MailMerge
 
-[![Build Status](https://travis-ci.org/impraise/react-mailmerge.svg?branch=master)](https://travis-ci.org/impraise/react-mailmerge)
+[![Build Status](https://travis-ci.org/impraise/react-mailmerge.svg?branch=master)](https://travis-ci.org/impraise/react-mailmerge) [![codecov](https://codecov.io/gh/impraise/react-mailmerge/branch/master/graph/badge.svg)](https://codecov.io/gh/impraise/react-mailmerge)
 
 Rendering templates is slow. If your website sends transactional email,
 it's probably rendering a lot of templates, since every email uses at least
