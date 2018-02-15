@@ -12,9 +12,13 @@ script:
 after_success:
   - codecov
 
+before_deploy:
+  - yarn build-storybook
+
 deploy:
-  provider: script
-  script: yarn deploy-storybook --ci
+  provider: pages
   skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local-dir: storybook-static
   on:
     branch: master
