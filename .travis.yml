@@ -15,5 +15,6 @@ after_success:
 deploy:
   provider: script
   script: yarn deploy-storybook --ci
+  skip_cleanup: true
   on:
     branch: master
