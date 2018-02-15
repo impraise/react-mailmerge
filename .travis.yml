@@ -1,3 +1,9 @@
 sudo: false
 language: node_js
 node_js: "node"
+
+deploy:
+  provider: script
+  script: yarn deploy-storybook --ci
+  on:
+    branch: master
