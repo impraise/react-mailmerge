@@ -39,3 +39,11 @@ aws_secret_access_key = xxxxxxxxxxxxxxxxxxxxxxxx
 - `/functions` — Email templates. One template per function.
 - `/shared` — Code that is shared between templates.
 - `/utils` — Utility functions.
+
+# Credits
+
+**React-MailMerge** is developed and maintained by
+[Impraise](http://www.impraise.com/).
+Issue reports and pull requests are greatly appreciated!
+
+![Impraise logo](impraise-logo.png)
