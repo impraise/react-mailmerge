@@ -10,24 +10,26 @@ function isoDate(name, defaultValue) {
   return new Date(stringTimestamp).toISOString();
 }
 
+const dataFactory = () => ({
+  baseUrl: text("baseUrl", "example-website.com"),
+  user: {
+    email: "foo@example.com",
+    firstName: text("user firstName", "Frodo"),
+    locale: "en",
+    timeZone: text("user timeZone", "America/New_York")
+  },
+  event: {
+    id: 1,
+    title: text("event title", "Bilbo's Farewell Birthday Party"),
+    startAt: isoDate("event startAt", "3001-10-22T11:00:00-05:00"),
+    endAt: isoDate("event endAt", "3001-10-22T22:00:00-05:00")
+  }
+});
+
 storiesOf("userReminder", module)
   .addDecorator(withKnobs)
   .add("HTML", () => {
-    const data = {
-      baseUrl: text("baseUrl", "example-website.com"),
-      user: {
-        email: text("user email", "foo@example.com"),
-        firstName: text("user firstName", "Alice"),
-        locale: "en",
-        timeZone: text("user timeZone", "America/New_York"),
-      },
-      event: {
-        id: 1,
-        title: text("event title", "Pool Party"),
-        startAt: isoDate("event startAt", "2017-02-01T10:00:00Z"),
-        endAt: isoDate("event endAt", "2017-02-01T22:00:00Z"),
-      }
-    };
+    const data = dataFactory();
     return (
       <IntlProvider locale={data.user.locale}>
         <Template {...data} />
@@ -35,20 +37,6 @@ storiesOf("userReminder", module)
     );
   })
   .add("text", () => {
-    const data = {
-      baseUrl: "example-website.com",
-      user: {
-        email: "foo@example.com",
-        firstName: "Test",
-        locale: "en",
-        timeZone: "America/New_York"
-      },
-      event: {
-        id: 1,
-        title: "Pool Party",
-        startAt: "2017-02-01T10:00:00Z",
-        endAt: "2017-02-01T22:00:00Z"
-      }
-    };
+    const data = dataFactory();
     return <pre>{textTemplate(data)}</pre>;
   });

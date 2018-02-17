@@ -8,11 +8,12 @@ import * as site from "shared/constants/site";
 
 const Template = ({ baseUrl, user, invitedBy, group }) => {
   const url = `https://${baseUrl}/invitations/${user.invitationToken}`;
+  const greeting = user.name ? `Hey, ${user.name}!` : "Hey!";
   return (
     <EmailWrapper title={`You're invited to ${site.name}!`}>
       <Item>
         <Box cellPadding={5}>
-          <Item>Hey!</Item>
+          <Item>{greeting}</Item>
           <Item>
             {invitedBy.name} has invited you to join the <b>{group.name}</b>{" "}
             group on{" "}
