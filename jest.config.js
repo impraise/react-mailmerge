@@ -12,12 +12,8 @@ module.exports = {
     "^shared/(.*)$": "<rootDir>/shared/$1"
   },
   collectCoverageFrom: [
-    "**/*.{js,jsx}",
-    "!**/node_modules/**",
-    "!.eslintrc.js",
-    "!*.config.js",
-    "!preview/**",
-    "!coverage/**",
-    "!utils/tests/**"
+    "functions/**/*.{js,jsx}",
+    "shared/**/*.{js,jsx}",
+    "!**/stories.js"
   ]
 };
