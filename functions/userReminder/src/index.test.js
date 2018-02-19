@@ -22,11 +22,11 @@ describe("userReminder handler", () => {
     const callback = jest.fn();
     handle(data, context, callback);
 
-    const errors = callback.mock.calls[0][0];
-    expect(errors).toHaveLength(3);
-    expect(errors[0].message).toContain("baseUrl");
-    expect(errors[1].message).toContain("user");
-    expect(errors[2].message).toContain("event");
+    const errorsText = callback.mock.calls[0][0];
+    expect(errorsText.startsWith("Validation errors: ")).toBe(true);
+    expect(errorsText).toContain("baseUrl");
+    expect(errorsText).toContain("user");
+    expect(errorsText).toContain("event");
   });
 
   it("sends an email when called with correct arguments", () => {
@@ -36,13 +36,13 @@ describe("userReminder handler", () => {
         email: "foo@example.com",
         firstName: "Test",
         locale: "en",
-        timeZone: "America/New_York",
+        timeZone: "America/New_York"
       },
       event: {
         id: 1,
         title: "Pool Party",
         startAt: "2017-02-01T10:00:00Z",
-        endAt: "2017-02-01T22:00:00Z",
+        endAt: "2017-02-01T22:00:00Z"
       }
     };
     const context = new MockContext();
@@ -51,7 +51,7 @@ describe("userReminder handler", () => {
 
     expect(mockSendEmail).toHaveBeenCalledWith(
       {
-        From:  "hi@example-website.com",
+        From: "hi@example-website.com",
         To: "foo@example.com",
         Subject: "Looking forward to seeing you at Pool Party!",
         TextBody: expect.any(String),

@@ -15,7 +15,7 @@ export const handle = (data, context, callback) => {
   const ajv = new Ajv({ allErrors: true });
   const isValid = ajv.validate(schema, data);
   if (!isValid) {
-    return callback(ajv.errors);
+    return callback(`Validation errors: ${ajv.errorsText()}`); // eslint-disable-line
   }
   console.log(
     `Validated data. ${context.getRemainingTimeInMillis()}ms remaining until timeout.`
