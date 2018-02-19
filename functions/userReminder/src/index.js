@@ -44,7 +44,7 @@ export const handle = (data, context, callback) => {
       HtmlBody: html,
       Tag: "reminder"
     },
-    callback
+    err => callback(JSON.stringify(err))
   );
   console.log(
     `Email sent to Postmark. ${context.getRemainingTimeInMillis()}ms remaining until timeout.`
