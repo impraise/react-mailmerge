@@ -79,7 +79,7 @@ describe("email client", () => {
       expect.any(Function)
     );
     expect(global.console.error).toHaveBeenCalledWith(
-      "Unable to send via postmark: whoops"
+      'Unable to send via postmark: {"message":"whoops"}'
     );
   });
 });

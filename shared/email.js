@@ -14,7 +14,7 @@ class Client {
     }
     this.client.sendEmail(payload, (error, result) => {
       if (error) {
-        console.error("Unable to send via postmark: " + error.message);
+        console.error(`Unable to send via postmark: ${JSON.stringify(error)}`);
       }
       if (callback) {
         callback(error, result);
