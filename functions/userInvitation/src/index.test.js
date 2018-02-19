@@ -22,13 +22,12 @@ describe("userInvitation handler", () => {
     const callback = jest.fn();
     handle(data, context, callback);
 
-    const errors = callback.mock.calls[0][0];
-    expect(errors).toHaveLength(4);
-    const messages = errors.map(error => error.message);
-    expect(messages[0]).toContain("baseUrl");
-    expect(messages[1]).toContain("user");
-    expect(messages[2]).toContain("invitedBy");
-    expect(messages[3]).toContain("group");
+    const errorsText = callback.mock.calls[0][0];
+    expect(errorsText.startsWith("Validation errors: ")).toBe(true);
+    expect(errorsText).toContain("baseUrl");
+    expect(errorsText).toContain("user");
+    expect(errorsText).toContain("invitedBy");
+    expect(errorsText).toContain("group");
   });
 
   it("sends an email when called with correct arguments", () => {

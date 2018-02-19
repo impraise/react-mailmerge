@@ -14,7 +14,7 @@ export const handle = (data, context, callback) => {
   const ajv = new Ajv({ allErrors: true });
   const isValid = ajv.validate(schema, data);
   if (!isValid) {
-    return callback(ajv.errors);
+    return callback(`Validation errors: ${ajv.errorsText()}`); // eslint-disable-line
   }
   console.log(
     `Validated data. ${context.getRemainingTimeInMillis()}ms remaining until timeout.`
@@ -34,7 +34,9 @@ export const handle = (data, context, callback) => {
     {
       From: site.fromEmail,
       To: data.user.email,
-      Subject: `You've been invited to join ${data.group.name} on ${site.name}!`,
+      Subject: `You've been invited to join ${data.group.name} on ${
+        site.name
+      }!`,
       TextBody: text,
       HtmlBody: html,
       Tag: "invite"
